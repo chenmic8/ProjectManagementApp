@@ -1,0 +1,18 @@
+<h2>{{data.project}}</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Order</th>
+      <th scope="col">Title</th>
+      <th scope="col">Status</th>
+      <th scope="col">Remaining Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each data.tasks}}
+    {{!-- <tr data-bs-toggle="modal" data-bs-target="#exampleModal"> --}}
+      {{>taskRowPartial}}
+    {{!-- </tr> --}}
+    {{/each}}
+  </tbody>
+</table>
