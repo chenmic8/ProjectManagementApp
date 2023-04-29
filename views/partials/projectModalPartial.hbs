@@ -1,0 +1,54 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="projectModal"
+  tabindex="-1"
+  aria-labelledby="projectModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <input type="checkbox" id="checkBtn" />
+        <div id="invisible-toggle">
+          <form action="/projects/edit" method="post">
+            <h4>edit form</h4>
+            <label for="">label: </label>
+            <input type="text" placeholder="input" />
+            <button type="submit" class="modal-button">Save</button>
+            {{! <button
+                type="button"
+                class="modal-button"
+                data-bs-dismiss="modal"
+              >Close</button> }}
+            <label
+              data-bs-dismiss="modal"
+              class="toggleLabel modal-button"
+              for="checkBtn"
+            >
+              Close
+            </label>
+
+          </form>
+        </div>
+        <div id="visible-toggle">
+          <h4>view form</h4>
+          <label class="toggleLabel modal-button" for="checkBtn">Edit</label>
+          <button
+            type="button"
+            class="modal-button"
+            data-bs-dismiss="modal"
+          >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

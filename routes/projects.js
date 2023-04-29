@@ -53,6 +53,7 @@ router.get("/:projectTitle", function (req, res, next) {
       estimatedTime: 1,
       percentComplete: 0,
       state: "new",
+      assignedTo: ["Michelle"],
       project: req.params.projectTitle,
     },
     {
@@ -64,6 +65,7 @@ router.get("/:projectTitle", function (req, res, next) {
       estimatedTime: 2,
       percentComplete: 0,
       state: "new",
+      assignedTo: ["Michelle"],
       project: req.params.projectTitle,
     },
     {
@@ -75,6 +77,7 @@ router.get("/:projectTitle", function (req, res, next) {
       estimatedTime: 3,
       percentComplete: 0,
       state: "new",
+      assignedTo: ["Michelle"],
       project: req.params.projectTitle,
     },
     {
@@ -86,6 +89,7 @@ router.get("/:projectTitle", function (req, res, next) {
       estimatedTime: 4,
       percentComplete: 0,
       state: "new",
+      assignedTo: ["Michelle"],
       project: req.params.projectTitle,
     },
   ];
@@ -93,6 +97,17 @@ router.get("/:projectTitle", function (req, res, next) {
   res.render("tasks", {
     data: { tasks: tasks, project: req.params.projectTitle },
   });
+});
+
+router.get("/create", (req, res) => {});
+
+router.post("/", (req, res) => {
+  let { description, assignedTo } = req.body;
+  console.log(description, assignedTo);
+  res.send("worked");
+});
+router.post("/edit", (req, res) => {
+  res.send("worked");
 });
 
 module.exports = router;

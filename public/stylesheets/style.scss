@@ -10,7 +10,6 @@ a {
 #checkBtn {
   display: none;
 }
-
 #invisible-toggle {
   display: none;
 }
@@ -18,20 +17,25 @@ a {
 #checkBtn:checked ~ #invisible-toggle {
   display: block;
 }
-
 #checkBtn:checked ~ #visible-toggle {
   display: none;
 }
-
+// .toggleLabel {
+//   cursor: pointer;
+//   border: 1px solid black;
+//   border-radius: 10px;
+//   padding: 5px 10px;
+//   &:hover {
+//     background-color: lightgray;
+//   }
+// }
 .modal-button {
   cursor: pointer;
   border: 1px solid black;
   border-radius: 10px;
   padding: 5px 10px;
   background-color: white;
+  &:hover {
+    background-color: lightgray;
+  }
 }
-.modal-button:hover {
-  background-color: lightgray;
-}
-
-/*# sourceMappingURL=style.css.map */
