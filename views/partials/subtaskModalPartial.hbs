@@ -1,9 +1,9 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="projectDetailsModal"
+  id="subtaskDetailsModal"
   tabindex="-1"
-  aria-labelledby="projectModalLabel"
+  aria-labelledby="subtaskModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -19,8 +19,8 @@
         </div>
         <input type="checkbox" id="checkBtn" />
         <div id="invisible-toggle">
-          <form action="/projects/edit/{{_id}}" method="post">
-            <h4>Edit Project:</h4>
+          <form action="/subtasks/edit/{{_id}}" method="post">
+            <h4>Edit Subtask:</h4>
             <label for="title">Title: </label>
             <input name="title" id="title" type="text" value="{{title}}" />
             <label for="state">Status: </label>
@@ -29,7 +29,7 @@
                 selected="selected"
                 value="{{state._id}}"
               >{{state.name}}</option>
-              {{#each otherStates}}
+              {{#each task.otherStates}}
                 <option value="{{id}}">{{name}}</option>
               {{/each}}
             </select>

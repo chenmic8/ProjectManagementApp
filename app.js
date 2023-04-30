@@ -7,8 +7,10 @@ var hbs = require("hbs");
 var mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-var projectRouter = require("./routes/projects");
+var projectsRouter = require("./routes/projects");
 var usersRouter = require("./routes/users");
+var tasksRouter = require("./routes/tasks");
+var subtasksRouter = require("./routes/subtasks");
 
 var app = express();
 
@@ -24,7 +26,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // app.use('/', indexRouter);
 app.use("/users", usersRouter);
-app.use("/projects", projectRouter);
+app.use("/projects", projectsRouter);
+app.use("/tasks", tasksRouter);
+app.use("/subtasks", subtasksRouter);
 
 app.get("/", (req, res) => {
   res.render("index", { title: "hello world" });

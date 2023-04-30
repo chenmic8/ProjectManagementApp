@@ -1,0 +1,55 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="createSubtaskModal"
+  tabindex="-1"
+  aria-labelledby="createTaskModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-header">
+          <h1>Create Subtask</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <form action="/subtasks/create/{{_id}}" method="post">
+          <label for="title">Title: </label>
+          <input id="title" type="text" placeholder="Title" name="title" />
+          <label for="estimated-time">Estimated Time: </label>
+          <input
+            id="estimated-time"
+            type="number"
+            placeholder="1"
+            name="estimatedTime"
+          />
+          <label for="type">Type: </label>
+          <select name="type" id="type">
+            <option value="actionable" selected="selected">actionable</option>
+            <option value="bug">bug</option>
+          </select>
+          <label for="description">Description: </label>
+          <textarea
+            name="description"
+            id="description"
+            cols="30"
+            rows="10"
+            placeholder="description"
+          ></textarea>
+          <button type="submit">Create Subtask</button>
+        </form>
+        <button
+          type="button"
+          class="modal-button"
+          data-bs-dismiss="modal"
+        >Close</button>
+      </div>
+    </div>
+  </div>
+</div>

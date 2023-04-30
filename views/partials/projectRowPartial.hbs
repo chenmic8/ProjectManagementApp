@@ -1,8 +1,7 @@
-<tr
-  class="clickable"
-  onclick="window.location='http://localhost:4000/projects/{{title}}'"
->
-  <th scope="row">{{order}}</th>
+<tr>
   <td>{{title}}</td>
-  <td>{{state}}</td>
+  <td class="{{state.color}}">{{state.name}}</td>
+  <td><a href="/tasks/all-tasks/{{_id}}">details</a></td>
 </tr>
+{{!-- class="clickable"
+  onclick="window.location='http://localhost:4000/tasks/all-tasks/{{_id}}'" --}}

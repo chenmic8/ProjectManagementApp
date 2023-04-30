@@ -1,13 +1,11 @@
 <h2>Projects</h2>
-<form action="/projects/create" method="GET">
-  <button type="submit">New Project</button>
-</form>
+<button data-bs-toggle="modal" data-bs-target="#createProjectModal">New Project</button>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Order</th>
       <th scope="col">Title</th>
       <th scope="col">Status</th>
+      <th scope="col">Details</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +16,8 @@
     {{/each}}
   </tbody>
 </table>
+
+{{>createProjectModalPartial}}
 
 <!-- Modal -->
 {{!-- <div

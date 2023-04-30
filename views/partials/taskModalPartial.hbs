@@ -1,25 +1,15 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="taskModal{{id}}"
+  id="taskDetailsModal"
   tabindex="-1"
   aria-labelledby="taskModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
-      <form action="/projects" method="POST">
+      <div class="modal-body">
         <div class="modal-header">
-          {{!-- <h5 class="modal-title" id="taskModalLabel">{{title}}</h5> --}}
-          <label for="taskModalLabel">Title: </label>
-          <input
-            type="text"
-            class="modal-title"
-            value="{{title}}"
-            id="taskModalLabel"
-          />
-          {{! <div class="input-group input-group-lg">
-          </div> }}
           <button
             type="button"
             class="btn-close"
@@ -27,39 +17,59 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
-          <p>Order: {{order}}</p>
-          <p>Date created: {{dateCreated}}</p>
-          <p>Assigned to: {{assignedTo}}</p>
-          <hr />
-          <label for="estimated-time">Estimated time: </label>
-          <input
-            id="estimated-time"
-            type="number"
-            name="estimatedTime"
-            value="{{estimatedTime}}"
-          />
-          <br />
-          <label for="description">Description: </label>
-          <br /><br />
-          <textarea
-            id="description"
-            type="text"
-            name="description"
-            rows="20"
-            class="col-12"
-          >{{description}}</textarea>
+        <input type="checkbox" id="checkBtn" />
+        <div id="invisible-toggle">
+          <form action="/tasks/edit/{{_id}}" method="post">
+            <h4>Edit Task:</h4>
+            <label for="title">Title: </label>
+            <input name="title" id="title" type="text" value="{{title}}" />
+            <label for="state">Status: </label>
+            <select name="state" id="state">
+              <option
+                selected="selected"
+                value="{{state._id}}"
+              >{{state.name}}</option>
+              {{#each otherStates}}
+                <option value="{{id}}">{{name}}</option>
+              {{/each}}
+            </select>
+            <label for="description">Description: </label>
+            <textarea
+              name="description"
+              id="title"
+              type="text"
+            >{{description}}</textarea>
+            <button type="submit" class="modal-button">Save</button>
+            {{! <button
+                type="button"
+                class="modal-button"
+                data-bs-dismiss="modal"
+              >Close</button> }}
+            <label
+              data-bs-dismiss="modal"
+              class="toggleLabel modal-button"
+              for="checkBtn"
+            >
+              Close
+            </label>
+
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Delete task</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+        <div id="visible-toggle">
+          <div>
+            <h3>Title: {{title}}</h3>
+            <p class="{{state.color}}">Status: {{state.name}}</p>
+            <p>Description: {{description}}</p>
+
+          </div>
+          <label class="toggleLabel modal-button" for="checkBtn">Edit</label>
           <button
             type="button"
-            class="btn btn-secondary"
+            class="modal-button"
             data-bs-dismiss="modal"
           >Close</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

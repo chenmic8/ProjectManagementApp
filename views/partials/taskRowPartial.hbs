@@ -1,8 +1,7 @@
-<tr data-bs-toggle="modal" data-bs-target="#taskModal{{id}}">
-  <th scope="row">{{order}}</th>
+<tr data-bs-toggle="modal" data-bs-target="#taskModal{{_id}}">
   <td>{{title}}</td>
-  <td>{{state}}</td>
-  <td>0</td>
+  <td class="{{state.color}}">{{state.name}}</td>
+  <td><a href="/subtasks/all-subtasks/{{_id}}">details</a></td>
 </tr>
 
-{{>taskModalPartial this}}
+{{>subtaskModalPartial this}}
