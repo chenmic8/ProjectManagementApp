@@ -7,28 +7,53 @@ a {
   color: #00b7ff;
 }
 
-#checkBtn {
+#project-checkBtn {
   display: none;
 }
-#invisible-toggle {
+#task-checkBtn {
+  display: none;
+}
+#subtask-checkBtn {
   display: none;
 }
 
-#checkBtn:checked ~ #invisible-toggle {
-  display: block;
-}
-#checkBtn:checked ~ #visible-toggle {
+#project-invisible-toggle {
   display: none;
 }
-// .toggleLabel {
-//   cursor: pointer;
-//   border: 1px solid black;
-//   border-radius: 10px;
-//   padding: 5px 10px;
-//   &:hover {
-//     background-color: lightgray;
-//   }
-// }
+#task-invisible-toggle {
+  display: none;
+}
+#subtask-invisible-toggle {
+  display: none;
+}
+
+#project-checkBtn:checked ~ #project-invisible-toggle {
+  display: block;
+}
+#project-checkBtn:checked ~ #project-visible-toggle {
+  display: none;
+}
+#task-checkBtn:checked ~ #task-invisible-toggle {
+  display: block;
+}
+#task-checkBtn:checked ~ #task-visible-toggle {
+  display: none;
+}
+#subtask-checkBtn:checked ~ #subtask-invisible-toggle {
+  display: block;
+}
+#subtask-checkBtn:checked ~ #subtask-visible-toggle {
+  display: none;
+}
+.toggleLabel {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px 10px;
+  &:hover {
+    background-color: lightgray;
+  }
+}
 .modal-button {
   cursor: pointer;
   border: 1px solid black;

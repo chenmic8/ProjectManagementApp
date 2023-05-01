@@ -49,24 +49,25 @@ router.get("/all-tasks/:projectId", (req, res, next) => {
 router.post("/create/:projectId", (req, res, next) => {
   const { title, description } = req.body;
   const projID = req.params.projectId;
-  Task.create({
-    title,
-    description,
-    state: "644d97c6a5eedd5fc3be1ffb",
-    project: projID,
-    user: "644d9ac111997a23fd9e5339",
-  }).then((createdTask) => {
-    res.redirect(`/tasks/all-tasks/${projID}`);
+  State.findOne({ name: "new" }).then((newState) => {
+    Task.create({
+      title,
+      description,
+      state: newState._id,
+      project: projID,
+      user: "644d9ac111997a23fd9e5339",
+    }).then((createdTask) => {
+      res.redirect(`/tasks/all-tasks/${projID}`);
+    });
   });
 });
 router.post("/edit/:taskId", (req, res, next) => {
-    const taskID = req.params.taskId;
-    const updatedTask = req.body;
-    Task.findByIdAndUpdate(taskID, updatedTask).then((updatedTask) => {
-      console.log("updated Task: ", updatedTask);
-      res.redirect(`/tasks/all-tasks/${taskID}`);
-    });
+  const taskID = req.params.taskId;
+  const updatedTask = req.body;
+  Task.findByIdAndUpdate(taskID, updatedTask).then((updatedTask) => {
+    console.log("updated Task: ", updatedTask);
+    res.redirect(`/subtasks/all-subtasks/${taskID}`);
   });
-  
+});
 
 module.exports = router;

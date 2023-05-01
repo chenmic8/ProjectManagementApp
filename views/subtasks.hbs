@@ -20,6 +20,7 @@
     {{#each subtasks}}
     {{!-- <tr data-bs-toggle="modal" data-bs-target="#exampleModal"> --}}
       {{>subtaskRowPartial}}
+      {{>subtaskModalPartial}}
     {{!-- </tr> --}}
     {{/each}}
   </tbody>
@@ -27,6 +28,9 @@
 {{else}}
 <h6>No tasks added yet! Please add a new task</h6>
 {{/if}}
+
+{{!-- <a href="/subtasks/edit">testing</a>
+{{test}} --}}
 
 {{>createSubtaskModalPartial task}}
 {{>taskModalPartial task}}

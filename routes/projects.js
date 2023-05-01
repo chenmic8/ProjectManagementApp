@@ -23,11 +23,14 @@ router.get("/all-projects", (req, res, next) => {
  *****************/
 router.post("/create", (req, res, next) => {
   const { title, description } = req.body;
-  Project.create({
-    title,
-    description,
-  }).then((createdProject) => {
-    res.redirect("/projects/all-projects");
+  State.findOne({ name: "new" }).then((newState) => {
+    Project.create({
+      title,
+      description,
+      state: newState._id ,
+    }).then((createdProject) => {
+      res.redirect("/projects/all-projects");
+    });
   });
 });
 router.post("/edit/:projectId", (req, res, next) => {

@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="subtaskDetailsModal"
+  id="subtaskModal{{_id}}"
   tabindex="-1"
   aria-labelledby="subtaskModalLabel"
   aria-hidden="true"
@@ -17,8 +17,8 @@
             aria-label="Close"
           ></button>
         </div>
-        <input type="checkbox" id="checkBtn" />
-        <div id="invisible-toggle">
+        <input type="checkbox" id="subtask-checkBtn" />
+        <div id="subtask-invisible-toggle">
           <form action="/subtasks/edit/{{_id}}" method="post">
             <h4>Edit Subtask:</h4>
             <label for="title">Title: </label>
@@ -40,29 +40,25 @@
               type="text"
             >{{description}}</textarea>
             <button type="submit" class="modal-button">Save</button>
-            {{! <button
-                type="button"
-                class="modal-button"
-                data-bs-dismiss="modal"
-              >Close</button> }}
             <label
               data-bs-dismiss="modal"
               class="toggleLabel modal-button"
-              for="checkBtn"
+              for="subtask-checkBtn"
             >
               Close
             </label>
-
           </form>
         </div>
-        <div id="visible-toggle">
+        <div id="subtask-visible-toggle">
           <div>
             <h3>Title: {{title}}</h3>
             <p class="{{state.color}}">Status: {{state.name}}</p>
             <p>Description: {{description}}</p>
-
           </div>
-          <label class="toggleLabel modal-button" for="checkBtn">Edit</label>
+          <label
+            class="toggleLabel modal-button"
+            for="subtask-checkBtn"
+          >Edit</label>
           <button
             type="button"
             class="modal-button"
