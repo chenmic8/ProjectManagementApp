@@ -10,14 +10,17 @@ const states = [
   {
     name: "new",
     color: "text-success",
+    value: 1,
   },
   {
     name: "ongoing",
     color: "text-warning",
+    value: 2,
   },
   {
     name: "complete",
     color: "text-danger",
+    value: 3,
   },
 ];
 

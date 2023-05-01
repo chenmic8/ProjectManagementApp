@@ -1,19 +1,46 @@
-<h2 id="project-header" data-bs-toggle="modal" data-bs-target="#taskDetailsModal">Task: {{task.title}}
+<h2 id="project-header" data-bs-toggle="modal" data-bs-target="#taskDetailsModal"><a href="/tasks/all-tasks/{{task.project._id}}">{{task.project.title}} > </a>{{task.title}}
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
   </svg>
 </h2>
+<p class="{{task.state.color}}">Status: {{task.state.name}}</p>
 <button data-bs-toggle="modal" data-bs-target="#createSubtaskModal">New Subtask</button>
-<label for="project-header">
 
-</label>
+<form action="/subtasks/all-subtasks/{{task._id}}" method="get">
+  <label for="sort-subtasks">Sort: </label>
+  <select name="sortParam" id="sort-subtasks">
+    <option value="" selected hidden></option>
+    <option value="statusAscending">Status Ascending</option>
+    <option value="statusDescending">Status Descending</option>
+    <option value="percentAscending">Percent Ascending</option>
+    <option value="percentDescending">Percent Descending</option>
+  </select>
+  <label for="filter-subtasks">Filter: </label>
+  <select name="filterParam" id="filter-subtasks">
+    <option value="" selected hidden></option>
+    <option value="new">New</option>
+    <option value="ongoing">Ongoing</option>
+    <option value="complete">Complete</option>
+  </select>
+  <button type="submit">Apply</button>
+</form>
+{{!-- <form action="/subtasks/all-subtasks/{{task._id}}" method="get"></form>
+<select onchange="this.form.submit()" name="sortParam" id="sort-subtasks">
+
+</select>
+</form> --}}
+
+
 {{#if subtasks}}
 <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">Title</th>
       <th scope="col">Estimated Time</th>
+      <th scope="col">Percent Complete</th>
+      <th scope="col">Type</th>
       <th scope="col">Status</th>
+      <th scope="col">User</th>
     </tr>
   </thead>
   <tbody>
@@ -21,12 +48,13 @@
     {{!-- <tr data-bs-toggle="modal" data-bs-target="#exampleModal"> --}}
       {{>subtaskRowPartial}}
       {{>subtaskModalPartial}}
+      {{>subtaskEditModalPartial}}
     {{!-- </tr> --}}
     {{/each}}
   </tbody>
 </table>
 {{else}}
-<h6>No tasks added yet! Please add a new task</h6>
+<h6>No subtasks added yet! Please add a new task</h6>
 {{/if}}
 
 {{!-- <a href="/subtasks/edit">testing</a>

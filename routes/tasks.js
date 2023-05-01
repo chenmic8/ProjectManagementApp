@@ -12,10 +12,12 @@ router.get("/all-tasks/:projectId", (req, res, next) => {
   const projID = req.params.projectId;
   Project.findById(projID)
     .populate("state")
+    .populate("user")
     .then((foundProject) => {
-      const { _id, title, description, state } = foundProject;
+      const { _id, title, description, state, user } = foundProject;
       Task.find({ project: projID })
         .populate("state")
+        .populate("user")
         .then((foundTasks) => {
           State.find().then((states) => {
             //to preselect status of project
@@ -32,6 +34,7 @@ router.get("/all-tasks/:projectId", (req, res, next) => {
                 _id,
                 description,
                 state,
+                user,
                 otherStates,
               },
             };
@@ -49,13 +52,14 @@ router.get("/all-tasks/:projectId", (req, res, next) => {
 router.post("/create/:projectId", (req, res, next) => {
   const { title, description } = req.body;
   const projID = req.params.projectId;
+  const user = req.session.user._id;
   State.findOne({ name: "new" }).then((newState) => {
     Task.create({
       title,
       description,
       state: newState._id,
       project: projID,
-      user: "644d9ac111997a23fd9e5339",
+      user,
     }).then((createdTask) => {
       res.redirect(`/tasks/all-tasks/${projID}`);
     });

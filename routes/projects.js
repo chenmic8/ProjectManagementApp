@@ -3,15 +3,18 @@ var router = express.Router();
 const Project = require("../models/Project");
 const Task = require("../models/Task");
 const State = require("../models/State");
+const { isLoggedIn } = require("../middleware/route-guard");
 
 /*********************
  *
  *  get all projects
  *
  *********************/
-router.get("/all-projects", (req, res, next) => {
-  Project.find()
+router.get("/all-projects", isLoggedIn, (req, res, next) => {
+  const user = req.session.user._id;
+  Project.find({ user: user })
     .populate("state")
+    .populate("user")
     .then((projects) => {
       res.render("projects.hbs", { projects });
     });
@@ -23,11 +26,13 @@ router.get("/all-projects", (req, res, next) => {
  *****************/
 router.post("/create", (req, res, next) => {
   const { title, description } = req.body;
+  const user = req.session.user._id;
   State.findOne({ name: "new" }).then((newState) => {
     Project.create({
       title,
       description,
-      state: newState._id ,
+      state: newState._id,
+      user,
     }).then((createdProject) => {
       res.redirect("/projects/all-projects");
     });

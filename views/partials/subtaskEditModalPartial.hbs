@@ -1,9 +1,9 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="projectDetailsModal"
+  id="subtaskEditModal{{_id}}"
   tabindex="-1"
-  aria-labelledby="projectModalLabel"
+  aria-labelledby="subtaskModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -17,12 +17,40 @@
             aria-label="Close"
           ></button>
         </div>
-        <input type="checkbox" id="project-checkBtn" />
-        <div id="project-invisible-toggle">
-          <form action="/projects/edit/{{_id}}" method="post">
-            <h4>Edit Project:</h4>
+        <div>
+          <form action="/subtasks/edit/{{_id}}" method="post">
+            <h4>Edit Subtask:</h4>
+            <p>Parent Task: {{task.title}}</p>
+            <p>Subtask type: {{type}}</p>
+            <p>Created by: {{user.lastName}}, {{user.firstName}}</p>
             <label for="title">Title: </label>
             <input name="title" id="title" type="text" value="{{title}}" />
+
+            <label for="estimated-time">Estimated time: </label>
+            <input
+              type="number"
+              name="estimatedTime"
+              id="estimated-time"
+              value="{{estimatedTime}}"
+            />
+            <label for="percent-complete">Percent complete: </label>
+            <select name="percentComplete" id="percent-complete">
+              <option
+                value="{{percentComplete}}"
+                selected="selected"
+              >{{percentComplete}}</option>
+              <option value="0">0</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+              <option value="70">70</option>
+              <option value="80">80</option>
+              <option value="90">90</option>
+              <option value="100">100</option>
+            </select>
 
             <label for="state">Status: </label>
             <select name="state" id="state">
@@ -44,28 +72,13 @@
             <label
               data-bs-dismiss="modal"
               class="toggleLabel modal-button"
-              for="project-checkBtn"
+              for="subtask-checkBtn"
             >
               Close
             </label>
-
           </form>
         </div>
-        <div id="project-visible-toggle">
-          <div>
-            <h3>Title: {{title}}</h3>
-            <p>Created by: {{user.lastName}}, {{user.firstName}}</p>
-            <p class="{{state.color}}">Status: {{state.name}}</p>
-            <p>Description: {{description}}</p>
 
-          </div>
-          <label class="toggleLabel modal-button" for="project-checkBtn">Edit</label>
-          <button
-            type="button"
-            class="modal-button"
-            data-bs-dismiss="modal"
-          >Close</button>
-        </div>
       </div>
     </div>
   </div>

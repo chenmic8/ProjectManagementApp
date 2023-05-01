@@ -52,10 +52,15 @@
         <div id="task-visible-toggle">
           <div>
             <h3>Title: {{title}}</h3>
+            <p>Parent project: {{project.title}}</p>
+            <p>Created by: {{user.lastName}}, {{user.firstName}}</p>
             <p class="{{state.color}}">Status: {{state.name}}</p>
             <p>Description: {{description}}</p>
           </div>
-          <label class="toggleLabel modal-button" for="task-checkBtn">Edit</label>
+          <label
+            class="toggleLabel modal-button"
+            for="task-checkBtn"
+          >Edit</label>
           <button
             type="button"
             class="modal-button"

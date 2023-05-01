@@ -11,6 +11,11 @@ const stateSchema = new Schema(
       required: true,
       enum: ["text-danger", "text-warning", "text-success"],
     },
+    value: {
+      type: Number,
+      required: true,
+      enum: [1, 2, 3],
+    },
   },
   {
     timestamps: true,
