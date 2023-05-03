@@ -1,8 +1,32 @@
-<h1>Profile Page</h1>
-<img src="{{profilePicture}}" alt="profile picture" />
-<p>First name: {{firstName}}</p>
-<p>Last name: {{lastName}}</p>
-<p>username: {{username}}</p>
-<p>email: {{email}}</p>
-<p>password: {{password}}</p>
-<a href="/users/edit/{{_id}}">Edit information</a>
+<h1>Edit Information</h1>
+<form action="/users/edit" method="post">
+  {{! <input type="file" name=""> }}
+  <img src="{{profilePicture}}" alt="profile picture" />
+  <p>{{errorMessage}}</p>
+  <label for="firstName">First Name </label>
+  <input id="firstName" type="text" name="firstName" value="{{firstName}}" />
+  <label for="lastName">Last Name </label>
+  <input id="lastName" type="text" name="lastName" value="{{lastName}}" />
+  <label for="username">Username </label>
+  <input id="username" type="text" name="username" value="{{username}}" />
+  <label for="email">Email </label>
+  <input id="email" type="email" name="email" value="{{email}}" />
+  <label for="password">Current Password </label>
+  <input id="password" type="password" name="password" />
+  <p>Required to make changes.</p>
+  <button class="modal-button" type="submit">Save Changes</button>
+</form>
+<hr />
+<form action="/users/change-password" method="post">
+  <h6>Change Password</h6>
+  <label for="newPassword">New Password </label>
+  <input id="newPassword" type="password" name="newPassword" />
+  <label for="newPasswordRepeat">Repeat Password </label>
+  <input id="newPasswordRepeat" type="password" name="newPasswordRepeat" />
+  <label for="currentPassword">Current Password </label>
+  <input id="currentPassword" type="password" name="currentPassword" />
+  <button class="modal-button" type="submit">Save Changes</button>
+</form>
+<a href="/users/user-details">Go Back</a>
+<a data-bs-toggle="modal" data-bs-target="#deleteUserModal">Delete User</a>
+{{>deleteUserModalPartial}}

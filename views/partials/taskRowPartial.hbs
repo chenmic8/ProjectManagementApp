@@ -1,7 +1,12 @@
 <tr data-bs-toggle="modal" data-bs-target="#taskModal{{_id}}">
   <td>{{title}}</td>
+  <td>{{totalEstimatedTime}}</td>
+  <td>{{percentComplete}}%</td>
+  <td>{{totalTimeRemaining}}</td>
   <td class="{{state.color}}">{{state.name}}</td>
   <td>{{user.lastName}}, {{user.firstName}}</td>
+  <td>{{createdAt}}</td>
+  <td>{{updatedAt}}</td>
   <td><a href="/subtasks/all-subtasks/{{_id}}">details</a></td>
 </tr>
 

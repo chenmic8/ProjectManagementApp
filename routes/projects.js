@@ -3,6 +3,8 @@ var router = express.Router();
 const Project = require("../models/Project");
 const Task = require("../models/Task");
 const State = require("../models/State");
+const Subtask = require("../models/Subtask");
+const axios = require("axios");
 const { isLoggedIn } = require("../middleware/route-guard");
 
 /*********************
@@ -10,12 +12,33 @@ const { isLoggedIn } = require("../middleware/route-guard");
  *  get all projects
  *
  *********************/
-router.get("/all-projects", isLoggedIn, (req, res, next) => {
+router.get("/all-projects", isLoggedIn, (req, res) => {
   const user = req.session.user._id;
+  //DEFINE FUNCTIONS
+  //format dates function: createdAt, updatedAt => format: "Month 01"
+  function formatDates(arr) {
+    let deepcopyArr = JSON.parse(JSON.stringify(arr));
+    arr = deepcopyArr.map((item) => {
+      let dateCreated = new Date(item.createdAt);
+      let dateUpdated = new Date(item.updatedAt);
+      item.createdAt = new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "2-digit",
+      }).format(dateCreated);
+      item.updatedAt = new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "2-digit",
+      }).format(dateUpdated);
+      return item;
+    });
+    return arr;
+  }
+  //BACKEND/ROUTE LOGIC
   Project.find({ user: user })
     .populate("state")
     .populate("user")
     .then((projects) => {
+      projects = formatDates(projects);
       res.render("projects.hbs", { projects });
     });
 });
@@ -24,28 +47,66 @@ router.get("/all-projects", isLoggedIn, (req, res, next) => {
  *  project CRUD
  *
  *****************/
-router.post("/create", (req, res, next) => {
-  const { title, description } = req.body;
+router.post("/create", (req, res) => {
+  const { title, description, githubURL } = req.body;
+  const githubUser = new URL(githubURL).pathname.split("/")[1];
+  const githubRepo = new URL(githubURL).pathname.split("/")[2];
   const user = req.session.user._id;
   State.findOne({ name: "new" }).then((newState) => {
     Project.create({
       title,
       description,
       state: newState._id,
+      github: {
+        username: githubUser,
+        repo: githubRepo,
+        url: githubURL,
+      },
       user,
     }).then((createdProject) => {
       res.redirect("/projects/all-projects");
     });
   });
 });
-router.post("/edit/:projectId", (req, res, next) => {
+router.post("/edit/:projectId", (req, res) => {
   const projID = req.params.projectId;
   const updatedProject = req.body;
-  Project.findByIdAndUpdate(projID, updatedProject).then((updatedProject) => {
-    console.log("updated project: ", updatedProject);
+  let { title, user, state, githubURL } = updatedProject;
+  const githubUser = new URL(githubURL).pathname.split("/")[1];
+  const githubRepo = new URL(githubURL).pathname.split("/")[2];
+  Project.findByIdAndUpdate(projID, {
+    title,
+    user,
+    state,
+    github: {
+      username: githubUser,
+      repo: githubRepo,
+      url: githubURL,
+    },
+  }).then((updatedProject) => {
     res.redirect(`/tasks/all-tasks/${projID}`);
   });
 });
+router.post("/delete/:projectId", (req, res) => {
+  const projectID = req.params.projectId;
+  //get all tasks to delete all subtasks for each task
+  Task.find({ project: projectID }).then((tasks) => {
+    async function deleteSubtasksofTasksArray(arr) {
+      for (i = 0; i < arr.length; i++) {
+        await Subtask.deleteMany({ task: arr[i]._id });
+      }
+    }
+    deleteSubtasksofTasksArray(tasks).then(() => {
+      Task.deleteMany({ project: projectID }).then(() => {
+        Project.findByIdAndDelete(projectID).then(() => {
+          res.redirect(`/projects/all-projects`);
+        });
+      });
+    });
+  });
+});
+
+
 
 /* GET home page. */
 // router.get("/", function (req, res, next) {

@@ -10,6 +10,11 @@ const projectSchema = new Schema(
       ref: "State",
       default: "644d97c6a5eedd5fc3be1ffb",
     },
+    github: {
+      username: String,
+      repo: String,
+      url: String,
+    },
   },
   {
     timestamps: true,

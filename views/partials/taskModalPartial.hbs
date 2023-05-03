@@ -23,6 +23,9 @@
             <h4>Edit Task:</h4>
             <label for="title">Title: </label>
             <input name="title" id="title" type="text" value="{{title}}" />
+            <p>Total time remaining: {{totalTimeRemaining}}</p>
+            <p>Total estimated time: {{totalEstimatedTime}}</p>
+            <p>Percent complete: {{percentComplete}}%</p>
             <label for="state">Status: </label>
             <select name="state" id="state">
               <option
@@ -30,7 +33,7 @@
                 value="{{state._id}}"
               >{{state.name}}</option>
               {{#each otherStates}}
-                <option value="{{id}}">{{name}}</option>
+                <option value="{{_id}}">{{name}}</option>
               {{/each}}
             </select>
             <label for="description">Description: </label>
@@ -40,6 +43,13 @@
               type="text"
             >{{description}}</textarea>
             <button type="submit" class="modal-button">Save</button>
+            <button
+              type="button"
+              class="modal-button"
+              data-bs-dismiss="modal"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteTaskModal{{_id}}"
+            >Delete</button>
             <label
               data-bs-dismiss="modal"
               class="toggleLabel modal-button"
@@ -55,6 +65,9 @@
             <p>Parent project: {{project.title}}</p>
             <p>Created by: {{user.lastName}}, {{user.firstName}}</p>
             <p class="{{state.color}}">Status: {{state.name}}</p>
+            <p>Total time remaining: {{totalTimeRemaining}}</p>
+            <p>Total estimated time: {{totalEstimatedTime}}</p>
+            <p>Percent complete: {{percentComplete}}%</p>
             <p>Description: {{description}}</p>
           </div>
           <label

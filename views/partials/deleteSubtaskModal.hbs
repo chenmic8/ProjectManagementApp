@@ -1,0 +1,35 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="deleteSubtaskModal{{_id}}"
+  tabindex="-1"
+  aria-labelledby="projectModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Are you sure you want to delete subtask:"{{title}}"?</h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-footer">
+        <form action="/subtasks/delete/{{_id}}" method="post">
+          <button type="submit" class="modal-button" data-bs-dismiss="modal">
+            Delete
+          </button>
+          <button
+            type="button"
+            class="modal-button"
+            data-bs-dismiss="modal"
+          >Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

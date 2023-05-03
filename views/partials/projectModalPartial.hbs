@@ -23,7 +23,13 @@
             <h4>Edit Project:</h4>
             <label for="title">Title: </label>
             <input name="title" id="title" type="text" value="{{title}}" />
-
+            <label for="githubURL">Github Repository URL: </label>
+            <input
+              type="text"
+              id="githubURL"
+              name="githubURL"
+              value="{{github.url}}"
+            />
             <label for="state">Status: </label>
             <select name="state" id="state">
               <option
@@ -31,7 +37,7 @@
                 value="{{state._id}}"
               >{{state.name}}</option>
               {{#each otherStates}}
-                <option value="{{id}}">{{name}}</option>
+                <option value="{{_id}}">{{name}}</option>
               {{/each}}
             </select>
             <label for="description">Description: </label>
@@ -41,6 +47,13 @@
               type="text"
             >{{description}}</textarea>
             <button type="submit" class="modal-button">Save</button>
+            <button
+              type="button"
+              class="modal-button"
+              data-bs-dismiss="modal"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteProjectModal{{_id}}"
+            >Delete</button>
             <label
               data-bs-dismiss="modal"
               class="toggleLabel modal-button"
@@ -59,7 +72,10 @@
             <p>Description: {{description}}</p>
 
           </div>
-          <label class="toggleLabel modal-button" for="project-checkBtn">Edit</label>
+          <label
+            class="toggleLabel modal-button"
+            for="project-checkBtn"
+          >Edit</label>
           <button
             type="button"
             class="modal-button"

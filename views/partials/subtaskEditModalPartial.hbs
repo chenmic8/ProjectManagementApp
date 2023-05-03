@@ -59,7 +59,7 @@
                 value="{{state._id}}"
               >{{state.name}}</option>
               {{#each otherStates}}
-                <option value="{{id}}">{{name}}</option>
+                <option value="{{_id}}">{{name}}</option>
               {{/each}}
             </select>
             <label for="description">Description: </label>
@@ -68,7 +68,18 @@
               id="title"
               type="text"
             >{{description}}</textarea>
-            <button type="submit" class="modal-button">Save</button>
+            <button
+              type="submit"
+              class="modal-button"
+              data-bs-dismiss="modal"
+            >Save</button>
+            <button
+              type="button"
+              class="modal-button"
+              data-bs-dismiss="modal"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteSubtaskModal{{_id}}"
+            >Delete</button>
             <label
               data-bs-dismiss="modal"
               class="toggleLabel modal-button"

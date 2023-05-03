@@ -4,6 +4,7 @@
   </svg>
 </h2>
 <p class="{{project.state.color}}">Status: {{project.state.name}}</p>
+<p>latest commit date: {{project.latestCommitDate}}</p>
 <button data-bs-toggle="modal" data-bs-target="#createTaskModal">New Task</button>
 <label for="project-header">
 
@@ -13,8 +14,14 @@
   <thead>
     <tr>
       <th scope="col">Title</th>
+      <th scope="col">Estimated Time</th>
+      <th scope="col">Percent Complete</th>
+      <th scope="col">Time Remaining</th>
       <th scope="col">Status</th>
+      
       <th scope="col">User</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Updated at</th>
       <th scope="col">Details</th>
     </tr>
   </thead>
@@ -32,3 +39,4 @@
 
 {{>createTaskModalPartial project}}
 {{>projectModalPartial project}}
+{{>deleteProjectModal project}}

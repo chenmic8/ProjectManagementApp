@@ -17,6 +17,7 @@ a {
   display: none;
 }
 
+
 #project-invisible-toggle {
   display: none;
 }
@@ -26,6 +27,7 @@ a {
 #subtask-invisible-toggle {
   display: none;
 }
+
 
 #project-checkBtn:checked ~ #project-invisible-toggle {
   display: block;
@@ -45,6 +47,7 @@ a {
 #subtask-checkBtn:checked ~ #subtask-visible-toggle {
   display: none;
 }
+
 .toggleLabel {
   cursor: pointer;
   border: 1px solid black;

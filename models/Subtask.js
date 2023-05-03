@@ -4,7 +4,7 @@ const subtaskSchema = new Schema(
   {
     title: { type: String, required: true },
     description: String,
-    estimatedTime: { type: Number, required: true, default: 1 },
+    estimatedTime: { type: Number, default: 1, required: true },
     percentComplete: { type: Number, default: 0 },
     type: { type: String, enum: ["bug", "actionable"], default: "actionable" },
     task: { type: Schema.Types.ObjectId, ref: "Task" },
