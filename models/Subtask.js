@@ -7,6 +7,7 @@ const subtaskSchema = new Schema(
     estimatedTime: { type: Number, default: 1, required: true },
     percentComplete: { type: Number, default: 0 },
     type: { type: String, enum: ["bug", "actionable"], default: "actionable" },
+    image: String,
     task: { type: Schema.Types.ObjectId, ref: "Task" },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     state: {

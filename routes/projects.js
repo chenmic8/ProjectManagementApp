@@ -6,6 +6,7 @@ const State = require("../models/State");
 const Subtask = require("../models/Subtask");
 const axios = require("axios");
 const { isLoggedIn } = require("../middleware/route-guard");
+const { formatDates } = require("../lib/taskHelpers");
 
 /*********************
  *
@@ -14,25 +15,6 @@ const { isLoggedIn } = require("../middleware/route-guard");
  *********************/
 router.get("/all-projects", isLoggedIn, (req, res) => {
   const user = req.session.user._id;
-  //DEFINE FUNCTIONS
-  //format dates function: createdAt, updatedAt => format: "Month 01"
-  function formatDates(arr) {
-    let deepcopyArr = JSON.parse(JSON.stringify(arr));
-    arr = deepcopyArr.map((item) => {
-      let dateCreated = new Date(item.createdAt);
-      let dateUpdated = new Date(item.updatedAt);
-      item.createdAt = new Intl.DateTimeFormat("en-US", {
-        month: "long",
-        day: "2-digit",
-      }).format(dateCreated);
-      item.updatedAt = new Intl.DateTimeFormat("en-US", {
-        month: "long",
-        day: "2-digit",
-      }).format(dateUpdated);
-      return item;
-    });
-    return arr;
-  }
   //BACKEND/ROUTE LOGIC
   Project.find({ user: user })
     .populate("state")
@@ -48,22 +30,28 @@ router.get("/all-projects", isLoggedIn, (req, res) => {
  *
  *****************/
 router.post("/create", (req, res) => {
-  const { title, description, githubURL } = req.body;
-  const githubUser = new URL(githubURL).pathname.split("/")[1];
-  const githubRepo = new URL(githubURL).pathname.split("/")[2];
+  const newProject = req.body;
+
+  if (req.body.githubURL) {
+    const githubURL = req.body.githubURL;
+    console.log("GITHUBURL: ", githubURL);
+    const githubUser = new URL(githubURL).pathname.split("/")[1];
+    const githubRepo = new URL(githubURL).pathname.split("/")[2];
+    console.log("GITHUBURL user: ", githubUser);
+    console.log("GITHUBURL repo: ", githubRepo);
+    const github = {
+      username: githubUser,
+      repo: githubRepo,
+      url: githubURL,
+    };
+    newProject.github = github;
+    console.log("NEW PROJECT WITH ADDED GITHUB INFO", newProject);
+  }
   const user = req.session.user._id;
+  newProject.user = user;
   State.findOne({ name: "new" }).then((newState) => {
-    Project.create({
-      title,
-      description,
-      state: newState._id,
-      github: {
-        username: githubUser,
-        repo: githubRepo,
-        url: githubURL,
-      },
-      user,
-    }).then((createdProject) => {
+    newProject.state = newState._id;
+    Project.create(newProject).then((createdProject) => {
       res.redirect("/projects/all-projects");
     });
   });
@@ -105,8 +93,6 @@ router.post("/delete/:projectId", (req, res) => {
     });
   });
 });
-
-
 
 /* GET home page. */
 // router.get("/", function (req, res, next) {

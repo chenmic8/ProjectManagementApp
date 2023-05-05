@@ -9,35 +9,35 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="modal-header">
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div>
+        <div class="visible-content">
           <div>
-            <h3>Title: {{title}}</h3>
-            <p>Parent Task: {{task.title}}</p>
-            <p>Subtask type: {{type}}</p>
+            <h3>{{task.title}} > {{title}}</h3><hr />
+            {{#if image}}
+              <img src="{{image}}" alt="subtask" />
+            {{/if}}
             <p>Created by: {{user.lastName}}, {{user.firstName}}</p>
             <p class="{{state.color}}">Status: {{state.name}}</p>
+            <p>Subtask type: {{type}}</p>
+            <p>Created: {{createdAt}}</p>
+            <p>Updated: {{updatedAt}}</p>
+            <p>Time Remaining: {{timeRemaining}}</p>
             <p>Estimated time: {{estimatedTime}}</p>
-            <p>Percent complete: {{percentComplete}}</p>
+            <p>Percent complete: {{percentComplete}}%</p>
             <p>Description: {{description}}</p>
+          </div><br /><br />
+          <div class="buttons-container">
+            <label
+              class="toggleLabel modal-button"
+              data-bs-toggle="modal"
+              data-bs-target="#subtaskEditModal{{_id}}"
+              data-bs-dismiss="modal"
+            >Edit</label>
+            <button
+              type="button"
+              class="modal-button"
+              data-bs-dismiss="modal"
+            >Close</button>
           </div>
-          <label
-            class="toggleLabel modal-button"
-            data-bs-toggle="modal" data-bs-target="#subtaskEditModal{{_id}}"
-            data-bs-dismiss="modal"
-          >Edit</label>
-          <button
-            type="button"
-            class="modal-button"
-            data-bs-dismiss="modal"
-          >Close</button>
         </div>
       </div>
     </div>

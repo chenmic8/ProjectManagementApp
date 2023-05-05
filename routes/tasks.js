@@ -5,6 +5,7 @@ const Task = require("../models/Task");
 const State = require("../models/State");
 const Subtask = require("../models/Subtask");
 const axios = require("axios");
+const { addOtherStatesField, formatDates } = require("../lib/taskHelpers");
 
 /********************************
  *
@@ -13,40 +14,6 @@ const axios = require("axios");
  ********************************/
 router.get("/all-tasks/:projectId", (req, res) => {
   const projID = req.params.projectId;
-  //DEFINE FUNCTIONS
-  //format dates function: createdAt, updatedAt => format: "Month 01"
-  function formatDates(arr) {
-    let deepcopyArr = JSON.parse(JSON.stringify(arr));
-    arr = deepcopyArr.map((item) => {
-      let dateCreated = new Date(item.createdAt);
-      let dateUpdated = new Date(item.updatedAt);
-      item.createdAt = new Intl.DateTimeFormat("en-US", {
-        month: "long",
-        day: "2-digit",
-      }).format(dateCreated);
-      item.updatedAt = new Intl.DateTimeFormat("en-US", {
-        month: "long",
-        day: "2-digit",
-      }).format(dateUpdated);
-      return item;
-    });
-    return arr;
-  }
-  //add other states function
-  function addOtherStatesField(arr, states) {
-    let filteredStates = (state) => {
-      return states.filter((element) => {
-        return element.name !== state;
-      });
-    };
-    let deepcopyArr = JSON.parse(JSON.stringify(arr));
-    arr = deepcopyArr.map((item) => {
-      item.otherStates = filteredStates(item.state.name);
-      return item;
-    });
-    return arr;
-  }
-  //BACKEND ROUTE LOGIC
   Project.findById(projID)
     .populate("state")
     .populate("user")
@@ -75,6 +42,11 @@ router.get("/all-tasks/:projectId", (req, res) => {
                     0
                   );
                 }
+                /**
+                 * cool comment
+                 * @param {Array<Subtask>} subtasks
+                 * @returns
+                 */
                 function getTotalEstimatedTime(subtasks) {
                   return subtasks.reduce((a, b) => a + b.estimatedTime, 0);
                 }
@@ -92,10 +64,14 @@ router.get("/all-tasks/:projectId", (req, res) => {
                   getTotalEstimatedTime(subtasks);
                 deepcopyTasks[i].totalTimeRemaining =
                   getTotalTimeRemaining(subtasks);
-                deepcopyTasks[i].percentComplete = getPercentComplete(
-                  deepcopyTasks[i].totalEstimatedTime,
-                  deepcopyTasks[i].totalTimeRemaining
-                );
+                if (!deepcopyTasks[i].totalEstimatedTime) {
+                  deepcopyTasks[i].percentComplete = 0;
+                } else {
+                  deepcopyTasks[i].percentComplete = getPercentComplete(
+                    deepcopyTasks[i].totalEstimatedTime,
+                    deepcopyTasks[i].totalTimeRemaining
+                  );
+                }
                 foundTasks = deepcopyTasks;
                 console.log("❤️task: ", foundTasks[i].totalEstimatedTime);
               });
@@ -106,25 +82,39 @@ router.get("/all-tasks/:projectId", (req, res) => {
             foundTasks = formatDates(foundTasks);
             State.find().then((states) => {
               foundProject = addOtherStatesField([foundProject], states)[0];
-              axios
-                .get(
-                  `https://api.github.com/repos/${foundProject.github.username}/${foundProject.github.repo}/commits`
-                )
-                .then((result) => {
-                  const latestCommitDate = new Intl.DateTimeFormat("en-US", {
-                    month: "long",
-                    day: "2-digit",
-                    hour: "numeric",
-                    minute: "numeric",
-                  }).format(new Date(result.data[0].commit.committer.date));
-                  foundProject.latestCommitDate = latestCommitDate;
-                  //views page object
-                  const tasksPageObject = {
-                    tasks: foundTasks,
-                    project: foundProject,
-                  };
-                  res.render("tasks.hbs", tasksPageObject);
-                });
+              if (foundProject.github) {
+                axios
+                  .get(
+                    `https://api.github.com/repos/${foundProject.github.username}/${foundProject.github.repo}/commits`,
+                    {
+                      headers: {
+                        Authorization:
+                          "Bearer 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",
+                      },
+                    }
+                  )
+                  .then((result) => {
+                    const latestCommitDate = new Intl.DateTimeFormat("en-US", {
+                      month: "long",
+                      day: "2-digit",
+                      hour: "numeric",
+                      minute: "numeric",
+                    }).format(new Date(result.data[0].commit.committer.date));
+                    foundProject.latestCommitDate = latestCommitDate;
+                    //views page object
+                    const tasksPageObject = {
+                      tasks: foundTasks,
+                      project: foundProject,
+                    };
+                    res.render("tasks.hbs", tasksPageObject);
+                  });
+              } else {
+                const tasksPageObject = {
+                  tasks: foundTasks,
+                  project: foundProject,
+                };
+                res.render("tasks.hbs", tasksPageObject);
+              }
             });
           });
         });

@@ -1,17 +1,19 @@
-<h2>Projects</h2>
-<button data-bs-toggle="modal" data-bs-target="#createProjectModal">New Project</button>
-<table class="table table-hover">
-
-
+<div class="table-headings">
+<h5>Projects</h2>
+<div>
+  <button data-bs-toggle="modal" data-bs-target="#createProjectModal">New Project</button>
+</div>
+</div>
+<br>
 {{#if projects}}
+<table>
   <thead>
     <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Status</th>
-       <th scope="col">User</th>
-       <th scope="col">Created at</th>
-       <th scope="col">Updated at</th>
-      <th scope="col">Details</th>
+      <th>Title</th>
+      <th>Status</th>
+       <th>User</th>
+       <th>Updated</th>
+      {{!-- <th>Details</th> --}}
     </tr>
   </thead>
   <tbody>

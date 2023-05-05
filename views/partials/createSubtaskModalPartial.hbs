@@ -19,7 +19,11 @@
           ></button>
         </div>
 
-        <form action="/subtasks/create/{{_id}}" method="post">
+        <form
+          action="/subtasks/create/{{_id}}"
+          method="post"
+          enctype="multipart/form-data"
+        >
           <label for="title">Title: </label>
           <input id="title" type="text" placeholder="Title" name="title" />
           <label for="estimated-time">Estimated Time: </label>
@@ -34,6 +38,8 @@
             <option value="actionable" selected="selected">actionable</option>
             <option value="bug">bug</option>
           </select>
+          <label for="subtaskPicture">Add image: </label>
+          <input id="subtaskPicture" type="file" name="subtaskPicture" />
           <label for="description">Description: </label>
           <textarea
             name="description"

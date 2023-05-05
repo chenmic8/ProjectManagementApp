@@ -48,13 +48,15 @@ router.get("/user-details", isLoggedIn, (req, res) => {
 });
 router.get("/edit", isLoggedIn, (req, res) => {
   const userID = req.session.user._id;
+
   User.findById(userID).then((user) => {
     res.render("editProfile.hbs", user);
   });
 });
 router.post("/edit", (req, res, next) => {
   const userID = req.session.user._id;
-  const { firstName, lastName, username, email, password } = req.body;
+  const { firstName, lastName, username, email, password, profilePicture } =
+    req.body;
   //check if password matches
   User.findOne({ email })
     .then((user) => {

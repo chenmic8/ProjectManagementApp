@@ -14,6 +14,7 @@ var usersRouter = require("./routes/users");
 var tasksRouter = require("./routes/tasks");
 var subtasksRouter = require("./routes/subtasks");
 var authRouter = require("./routes/auth");
+var imagesRouter = require("./routes/images");
 
 var app = express();
 
@@ -56,8 +57,10 @@ app.use("/projects", projectsRouter);
 app.use("/tasks", tasksRouter);
 app.use("/subtasks", subtasksRouter);
 app.use("/auth", authRouter);
+app.use("/images", imagesRouter);
 
 app.get("/", (req, res) => {
+  console.log("HERE TRYING TO RENDER HOMEPAGE");
   res.render("index", { title: "hello world" });
 });
 

@@ -9,78 +9,88 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="modal-header">
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
         <input type="checkbox" id="project-checkBtn" />
         <div id="project-invisible-toggle">
           <form action="/projects/edit/{{_id}}" method="post">
-            <h4>Edit Project:</h4>
-            <label for="title">Title: </label>
-            <input name="title" id="title" type="text" value="{{title}}" />
-            <label for="githubURL">Github Repository URL: </label>
-            <input
-              type="text"
-              id="githubURL"
-              name="githubURL"
-              value="{{github.url}}"
-            />
-            <label for="state">Status: </label>
-            <select name="state" id="state">
-              <option
-                selected="selected"
-                value="{{state._id}}"
-              >{{state.name}}</option>
-              {{#each otherStates}}
-                <option value="{{_id}}">{{name}}</option>
-              {{/each}}
-            </select>
-            <label for="description">Description: </label>
-            <textarea
-              name="description"
-              id="title"
-              type="text"
-            >{{description}}</textarea>
-            <button type="submit" class="modal-button">Save</button>
+            <ul class="form-style-1">
+              <li>
+                <h4>Edit Project</h4>
+              </li>
+              <li>
+                <label for="state">Status: </label>
+                <select name="state" id="state">
+                  <option
+                    selected="selected"
+                    value="{{state._id}}"
+                  >{{state.name}}</option>
+                  {{#each otherStates}}
+                    <option value="{{_id}}">{{name}}</option>
+                  {{/each}}
+                </select>
+              </li>
+              <li>
+                <label for="title">Title: </label>
+                <input name="title" id="title" type="text" value="{{title}}" />
+              </li>
+              <li>
+                <label for="githubURL">Github Repository URL: </label>
+                <input
+                  type="text"
+                  id="githubURL"
+                  name="githubURL"
+                  value="{{github.url}}"
+                />
+              </li>
+              <li>
+                <label for="description">Description: </label>
+                <textarea
+                  name="description"
+                  id="title"
+                  type="text"
+                >{{description}}</textarea>
+              </li><br />
+              <li>
+                <div>
+                  <button type="submit" class="modal-button">Save</button>
+                  <button
+                    type="button"
+                    class="modal-button"
+                    data-bs-dismiss="modal"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteProjectModal{{_id}}"
+                  >Delete</button>
+                  <label
+                    data-bs-dismiss="modal"
+                    class="toggleLabel modal-button"
+                    for="project-checkBtn"
+                  >
+                    Close
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </form>
+        </div>
+        <div id="project-visible-toggle" class="visible-content">
+          <div>
+            <h3>Title: {{title}}</h3><hr />
+            <p>Created by: {{user.lastName}}, {{user.firstName}}</p>
+            <p class="{{state.color}}">Status: {{state.name}}</p>
+            <p>Created: {{createdAt}}</p>
+            <p>Updated: {{updatedAt}}</p>
+            <p>Description: {{description}}</p>
+          </div><br /><br />
+          <div class="buttons-container">
+            <label
+              class="toggleLabel modal-button"
+              for="project-checkBtn"
+            >Edit</label>
             <button
               type="button"
               class="modal-button"
               data-bs-dismiss="modal"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteProjectModal{{_id}}"
-            >Delete</button>
-            <label
-              data-bs-dismiss="modal"
-              class="toggleLabel modal-button"
-              for="project-checkBtn"
-            >
-              Close
-            </label>
-
-          </form>
-        </div>
-        <div id="project-visible-toggle">
-          <div>
-            <h3>Title: {{title}}</h3>
-            <p>Created by: {{user.lastName}}, {{user.firstName}}</p>
-            <p class="{{state.color}}">Status: {{state.name}}</p>
-            <p>Description: {{description}}</p>
-
+            >Close</button>
           </div>
-          <label
-            class="toggleLabel modal-button"
-            for="project-checkBtn"
-          >Edit</label>
-          <button
-            type="button"
-            class="modal-button"
-            data-bs-dismiss="modal"
-          >Close</button>
         </div>
       </div>
     </div>

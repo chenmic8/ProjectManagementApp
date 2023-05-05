@@ -1,7 +1,8 @@
-<h1>Edit Information</h1>
+<div id="edit-profile">
 <form action="/users/edit" method="post">
   {{! <input type="file" name=""> }}
-  <img src="{{profilePicture}}" alt="profile picture" />
+  {{!-- <img src="{{profilePicture}}" alt="profile picture" /> --}}
+  <h6 class="blue">Change User Details</h6><br>
   <p>{{errorMessage}}</p>
   <label for="firstName">First Name </label>
   <input id="firstName" type="text" name="firstName" value="{{firstName}}" />
@@ -13,20 +14,23 @@
   <input id="email" type="email" name="email" value="{{email}}" />
   <label for="password">Current Password </label>
   <input id="password" type="password" name="password" />
-  <p>Required to make changes.</p>
+  <p>Required to make changes.</p><br>
   <button class="modal-button" type="submit">Save Changes</button>
 </form>
-<hr />
+<br><br>
 <form action="/users/change-password" method="post">
-  <h6>Change Password</h6>
+  <h6 class="blue">Change Password</h6><br>
   <label for="newPassword">New Password </label>
   <input id="newPassword" type="password" name="newPassword" />
   <label for="newPasswordRepeat">Repeat Password </label>
   <input id="newPasswordRepeat" type="password" name="newPasswordRepeat" />
   <label for="currentPassword">Current Password </label>
-  <input id="currentPassword" type="password" name="currentPassword" />
+  <input id="currentPassword" type="password" name="currentPassword" /><br>
   <button class="modal-button" type="submit">Save Changes</button>
 </form>
-<a href="/users/user-details">Go Back</a>
-<a data-bs-toggle="modal" data-bs-target="#deleteUserModal">Delete User</a>
+<div class="centered">
+<a class="blue-button" href="/users/user-details">Go Back</a>
+<a class="pink-button" data-bs-toggle="modal" data-bs-target="#deleteUserModal">Delete User</a>
+</div>
+</div><br><br><br><br><br>
 {{>deleteUserModalPartial}}
