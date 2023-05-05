@@ -1,7 +1,7 @@
-<div id="form">
-  <h2>Login</h2>
+<div id="form"><br><br>
 
   <form action="/auth/login" method="POST">
+    <h5>Login</h5><br />
 
     <label>
       Email
@@ -11,9 +11,9 @@
     <label>Password
       <input type="password" name="password" />
     </label>
-
+    <br />
     <button type="submit">Login</button>
-
+    <br /><br />
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>
     {{/if}}

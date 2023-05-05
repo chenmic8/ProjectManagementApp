@@ -8,19 +8,14 @@
 >
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
-      <div class="modal-header">
-        <h2>Are you sure you want to delete project:"{{title}}"?</h2>
-        <p>You will lose all of the associated tasks and subtasks!!!</p>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-
-      <div class="modal-footer">
-        <form action="/projects/delete/{{_id}}" method="post">
+      <div class="delete-container">
+        <h2>Are you sure you want to delete project:"{{title}}?"</h2>
+        <p>You will lose all of the associated tasks and subtasks!!!</p><br><br>
+        <form
+          action="/projects/delete/{{_id}}"
+          method="post"
+          class="delete-buttons-container"
+        >
           <button type="submit" class="modal-button" data-bs-dismiss="modal">
             Delete
           </button>

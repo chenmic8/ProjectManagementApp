@@ -49,7 +49,7 @@ nav {
   align-items: center;
   height: 5vh;
   border-bottom: 1px solid $surface0;
-  margin-bottom: 5vh;
+  // margin-bottom: 5vh;
   div {
     width: 30vw;
     display: flex;
@@ -123,6 +123,8 @@ table {
     align-items: center;
     gap: 0.5rem;
     color: $blue;
+    padding: 2vh 0;
+    font-size: 1.8rem;
     svg {
       height: 15px;
     }
@@ -138,26 +140,59 @@ table {
       cursor: pointer;
     }
   }
+
   .filter-container {
-    padding-top: 1rem;
+    // padding-top: 1rem;
     display: flex;
     flex-direction: row;
     gap: 1rem;
     button {
       padding: 0 1rem;
+      border: 2px solid $overlay0;
+      background-color: $base;
+      color: $subtext0;
+      &:hover {
+        background-color: $surface1;
+      }
     }
     div {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       select {
-        background-color: $text;
-        color: $base;
+        // background-color: $text;
+        // color: $base;
+        font-size: 1rem;
+        padding: 0 0.5rem;
+        background-color: $surface0;
+        color: $text;
+        border: none;
+        outline: none;
+        &:focus {
+          box-shadow: 0 0 0 2px $blue;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+        option {
+          background-color: $surface1;
+          color: $text;
+        }
+        option:checked {
+          background-color: $blue;
+          color: $text;
+        }
       }
       label {
         color: $subtext0;
       }
     }
+  }
+  .above-table-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
 }
 .modal-content {
@@ -249,16 +284,34 @@ table {
       }
     }
     select {
-      background-color: $text;
-      color: $base;
+      font-size: 1rem;
+      padding: 5px 0.5rem;
+      background-color: $surface1;
+      color: $text;
+      border: none;
+      outline: none;
+      &:focus {
+        box-shadow: 0 0 0 2px $blue;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+      option {
+        background-color: $surface2;
+        color: $text;
+      }
+      option:checked {
+        background-color: $blue;
+        color: $text;
+      }
     }
 
     input {
       width: 100%;
       border: none;
       box-sizing: border-box;
-      background-color: $text;
-      color: $base;
+      background-color: $surface1;
+      color: $text;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       // border: 1px solid $blue;
@@ -285,8 +338,8 @@ table {
     }
     textarea {
       width: 100%;
-      background-color: $text;
-      color: $base;
+      background-color: $surface1;
+      color: $text;
       border: none;
       outline: none;
       &:focus {
@@ -322,6 +375,18 @@ table {
   }
   span {
     color: $blue;
+  }
+}
+
+.delete-container {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .delete-buttons-container {
+    display: flex;
+    gap: 1rem;
   }
 }
 
@@ -528,6 +593,12 @@ table {
       font-size: 16px;
       background-color: $surface1;
       color: $text;
+      &:focus {
+        -moz-box-shadow: 0 0 8px $blue;
+        -webkit-box-shadow: 0 0 8px $blue;
+        box-shadow: 0 0 8px $blue;
+        border: 1px solid $blue;
+      }
     }
     button {
       border: none;
@@ -586,5 +657,85 @@ table {
   span {
     display: flex;
     justify-content: center;
+  }
+}
+
+#form {
+  // display: flex;
+  // justify-content: space-evenly;
+  // align-items: center;
+  // max-width: 600px;
+  // margin: 0 auto;
+  // margin-top: 3rem;
+  a {
+    text-decoration: inherit;
+    border: none;
+    background-color: $blue;
+    color: $base;
+    padding: 0.5rem 2rem;
+    // height: 30px;
+    // width: 100px;
+    &:hover {
+      background-color: $pink;
+    }
+  }
+  .pink-button {
+    background-color: $subtext0;
+    &:hover {
+      background-color: $subtext1;
+      cursor: pointer;
+    }
+  }
+
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: $surface0;
+    color: $text;
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      font-size: 16px;
+      background-color: $surface1;
+      color: $text;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      outline: none;
+      &:focus {
+        -moz-box-shadow: 0 0 8px $blue;
+        -webkit-box-shadow: 0 0 8px $blue;
+        box-shadow: 0 0 8px $blue;
+        border: 1px solid $blue;
+      }
+    }
+    button {
+      border: none;
+      background-color: $blue;
+      color: $base;
+      padding: 0.5rem 2rem;
+      // height: 30px;
+      // width: 100px;
+      &:hover {
+        background-color: $pink;
+      }
+    }
+    h6 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    p {
+      color: $pink;
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
   }
 }

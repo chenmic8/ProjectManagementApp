@@ -9,37 +9,41 @@
     </svg>
   </h5>
   <p class="{{task.state.color}}">Status: {{task.state.name}}</p>
-  <div>
-    <button data-bs-toggle="modal" data-bs-target="#createSubtaskModal">New Subtask</button>
-  </div>
-  <div >
-    <form class="filter-container" action="/subtasks/all-subtasks/{{task._id}}" method="get">
+  <div class="above-table-container">
+
+  
     <div>
-      <label for="sort-subtasks">Sort: </label>
-      <select name="sortParam" id="sort-subtasks">
-        <option value="" selected hidden></option>
-        <option value="statusAscending">Status Ascending</option>
-        <option value="statusDescending">Status Descending</option>
-        <option value="percentAscending">Percent Ascending</option>
-        <option value="percentDescending">Percent Descending</option>
-        <option value="dateUpdated">Date Updated</option>
-        <option value="timeRemaining">Time Remaining</option>
-        <option value="estimatedTime">Estimated Time</option>
-      </select>
+      <button data-bs-toggle="modal" data-bs-target="#createSubtaskModal">New Subtask</button>
     </div>
-    <div>
-      <label for="filter-subtasks">Filter: </label>
-      <select name="filterParam" id="filter-subtasks">
-        <option value="" selected hidden></option>
-        <option value="new">New</option>
-        <option value="ongoing">Ongoing</option>
-        <option value="complete">Complete</option>
-      </select>
+    <div >
+      <form class="filter-container" action="/subtasks/all-subtasks/{{task._id}}" method="get">
+      <div>
+        <label for="sort-subtasks">Sort: </label>
+        <select name="sortParam" id="sort-subtasks">
+          <option value="" selected hidden></option>
+          <option value="statusAscending">Status Ascending</option>
+          <option value="statusDescending">Status Descending</option>
+          <option value="percentAscending">Percent Ascending</option>
+          <option value="percentDescending">Percent Descending</option>
+          <option value="dateUpdated">Date Updated</option>
+          <option value="timeRemaining">Time Remaining</option>
+          <option value="estimatedTime">Estimated Time</option>
+        </select>
+      </div>
+      <div>
+        <label for="filter-subtasks">Filter: </label>
+        <select name="filterParam" id="filter-subtasks">
+          <option value="" selected hidden></option>
+          <option value="new">New</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="complete">Complete</option>
+        </select>
+      </div>
+      <div>
+        <button class="small-blue-button" type="submit">Apply</button>
+      </div>
+      </form>
     </div>
-    <div>
-      <button class="small-blue-button" type="submit">Apply</button>
-    </div>
-    </form>
   </div>
 </div>
 {{!-- <form action="/subtasks/all-subtasks/{{task._id}}" method="get"></form>
@@ -75,7 +79,7 @@
   </tbody>
 </table>
 {{else}}
-<h6>No subtasks added yet! Please add a new task</h6>
+<h6>No subtasks added yet! Please add a new subtask</h6>
 {{/if}}
 
 {{!-- <a href="/subtasks/edit">testing</a>

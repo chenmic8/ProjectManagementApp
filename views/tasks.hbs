@@ -7,7 +7,9 @@
   </h5>
   <p class="{{project.state.color}}">Status: {{project.state.name}}</p>
   {{#if project.latestCommitDate}}
+  <div>
     <p>latest commit date: {{project.latestCommitDate}}</p>
+  </div>
   {{/if}}
   <div>
     <button data-bs-toggle="modal" data-bs-target="#createTaskModal">New Task</button>

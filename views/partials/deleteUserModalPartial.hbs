@@ -8,27 +8,21 @@
 >
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
-      <div class="modal-header">
-        <h2>Are you sure you want to delete user:"{{username}}"?</h2>
-        <p>You will permanently lose all your projects, tasks, and subtasks!!!!!</p>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-
-      <div class="modal-footer">
+      <div class="delete-container">
+        <h2>Are you sure you want to delete user:"{{username}}?"</h2>
+        <p>You will permanently lose all your projects, tasks, and subtasks!!!!!</p><br
+        /><br />
         <form action="/users/delete" method="post">
-          <button type="submit" class="modal-button" data-bs-dismiss="modal">
-            Delete
-          </button>
-          <button
-            type="button"
-            class="modal-button"
-            data-bs-dismiss="modal"
-          >Close</button>
+          <div class="delete-buttons-container">
+            <button type="submit" class="modal-button" data-bs-dismiss="modal">
+              Delete
+            </button>
+            <button
+              type="button"
+              class="modal-button"
+              data-bs-dismiss="modal"
+            >Close</button>
+          </div>
         </form>
       </div>
     </div>

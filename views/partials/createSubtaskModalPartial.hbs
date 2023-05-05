@@ -9,52 +9,64 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="modal-header">
-          <h1>Create Subtask</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-
         <form
           action="/subtasks/create/{{_id}}"
           method="post"
           enctype="multipart/form-data"
         >
-          <label for="title">Title: </label>
-          <input id="title" type="text" placeholder="Title" name="title" />
-          <label for="estimated-time">Estimated Time: </label>
-          <input
-            id="estimated-time"
-            type="number"
-            placeholder="1"
-            name="estimatedTime"
-          />
-          <label for="type">Type: </label>
-          <select name="type" id="type">
-            <option value="actionable" selected="selected">actionable</option>
-            <option value="bug">bug</option>
-          </select>
-          <label for="subtaskPicture">Add image: </label>
-          <input id="subtaskPicture" type="file" name="subtaskPicture" />
-          <label for="description">Description: </label>
-          <textarea
-            name="description"
-            id="description"
-            cols="30"
-            rows="10"
-            placeholder="description"
-          ></textarea>
-          <button type="submit">Create Subtask</button>
+          <ul class="form-style-1">
+            <li>
+              <h5>Create Subtask</h5>
+            </li>
+            <li>
+              <label for="title">Title: <span class="pink">*</span></label>
+              <input id="title" type="text" placeholder="Title" name="title" />
+            </li>
+            <li>
+              <label for="estimated-time">Estimated Time: </label>
+              <input
+                id="estimated-time"
+                type="number"
+                placeholder="1"
+                name="estimatedTime"
+              />
+            </li>
+            <li>
+              <label for="type">Type: </label>
+              <select name="type" id="type">
+                <option
+                  value="actionable"
+                  selected="selected"
+                >actionable</option>
+                <option value="bug">bug</option>
+              </select>
+            </li>
+            <li>
+              <label for="subtaskPicture">Add image: </label>
+              <input id="subtaskPicture" type="file" name="subtaskPicture" />
+            </li>
+            <li>
+              <label for="description">Description: </label>
+              <textarea
+                name="description"
+                id="description"
+                cols="30"
+                rows="10"
+                placeholder="description"
+              ></textarea>
+            </li>
+            <li>
+              <div>
+                <button type="submit">Create Subtask</button>
+                <button
+                  type="button"
+                  class="modal-button"
+                  data-bs-dismiss="modal"
+                >Close</button>
+              </div>
+            </li>
+          </ul>
         </form>
-        <button
-          type="button"
-          class="modal-button"
-          data-bs-dismiss="modal"
-        >Close</button>
       </div>
     </div>
   </div>

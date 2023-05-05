@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var User = require("../models/User");
 var Subtask = require("../models/Subtask");
+var Task = require("../models/Task");
+var Project = require("../models/Project");
 var bcryptjs = require("bcryptjs");
 const { isLoggedIn } = require("../middleware/route-guard");
 const saltRounds = 10;
@@ -102,7 +104,6 @@ router.post("/change-password", (req, res) => {
             });
           })
           .then((updatedUser) => {
-            console.log("Newly updated user is: ", updatedUser);
             res.redirect("/users/user-details");
           })
           .catch((error) => {
@@ -118,10 +119,16 @@ router.post("/change-password", (req, res) => {
 
 router.post("/delete", (req, res) => {
   const userID = req.session.user._id;
-  User.findByIdAndDelete(userID).then(() => {
-    req.session.destroy((err) => {
-      if (err) next(err);
-      res.redirect("/");
+  Subtask.deleteMany({ user: userID }).then(() => {
+    Task.deleteMany({ user: userID }).then(() => {
+      Project.deleteMany({ user: userID }).then(() => {
+        User.findByIdAndDelete(userID).then(() => {
+          req.session.destroy((err) => {
+            if (err) next(err);
+            res.redirect("/");
+          });
+        });
+      });
     });
   });
 });

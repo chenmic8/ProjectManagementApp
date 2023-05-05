@@ -15,7 +15,6 @@ nav {
   align-items: center;
   height: 5vh;
   border-bottom: 1px solid #313244;
-  margin-bottom: 5vh;
 }
 nav div {
   width: 30vw;
@@ -85,6 +84,8 @@ table tbody tr:hover {
   align-items: center;
   gap: 0.5rem;
   color: #89b4fa;
+  padding: 2vh 0;
+  font-size: 1.8rem;
 }
 .table-headings h5 svg {
   height: 15px;
@@ -100,13 +101,18 @@ table tbody tr:hover {
   cursor: pointer;
 }
 .table-headings .filter-container {
-  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
 }
 .table-headings .filter-container button {
   padding: 0 1rem;
+  border: 2px solid #6c7086;
+  background-color: #1e1e2e;
+  color: #a6adc8;
+}
+.table-headings .filter-container button:hover {
+  background-color: #45475a;
 }
 .table-headings .filter-container div {
   display: flex;
@@ -114,11 +120,35 @@ table tbody tr:hover {
   justify-content: flex-end;
 }
 .table-headings .filter-container div select {
-  background-color: #cdd6f4;
-  color: #1e1e2e;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  background-color: #313244;
+  color: #cdd6f4;
+  border: none;
+  outline: none;
+}
+.table-headings .filter-container div select:focus {
+  box-shadow: 0 0 0 2px #89b4fa;
+}
+.table-headings .filter-container div select:hover {
+  cursor: pointer;
+}
+.table-headings .filter-container div select option {
+  background-color: #45475a;
+  color: #cdd6f4;
+}
+.table-headings .filter-container div select option:checked {
+  background-color: #89b4fa;
+  color: #cdd6f4;
 }
 .table-headings .filter-container div label {
   color: #a6adc8;
+}
+.table-headings .above-table-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .modal-content {
@@ -194,15 +224,33 @@ table tbody tr:hover {
   background-color: #f5c2e7;
 }
 .modal-content .form-style-1 select {
-  background-color: #cdd6f4;
-  color: #1e1e2e;
+  font-size: 1rem;
+  padding: 5px 0.5rem;
+  background-color: #45475a;
+  color: #cdd6f4;
+  border: none;
+  outline: none;
+}
+.modal-content .form-style-1 select:focus {
+  box-shadow: 0 0 0 2px #89b4fa;
+}
+.modal-content .form-style-1 select:hover {
+  cursor: pointer;
+}
+.modal-content .form-style-1 select option {
+  background-color: #585b70;
+  color: #cdd6f4;
+}
+.modal-content .form-style-1 select option:checked {
+  background-color: #89b4fa;
+  color: #cdd6f4;
 }
 .modal-content .form-style-1 input {
   width: 100%;
   border: none;
   box-sizing: border-box;
-  background-color: #cdd6f4;
-  color: #1e1e2e;
+  background-color: #45475a;
+  color: #cdd6f4;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   padding: 7px;
@@ -225,8 +273,8 @@ table tbody tr:hover {
 }
 .modal-content .form-style-1 textarea {
   width: 100%;
-  background-color: #cdd6f4;
-  color: #1e1e2e;
+  background-color: #45475a;
+  color: #cdd6f4;
   border: none;
   outline: none;
 }
@@ -262,6 +310,18 @@ table tbody tr:hover {
 }
 #index span {
   color: #89b4fa;
+}
+
+.delete-container {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.delete-container .delete-buttons-container {
+  display: flex;
+  gap: 1rem;
 }
 
 #project-checkBtn {
@@ -370,6 +430,12 @@ table tbody tr:hover {
   background-color: #45475a;
   color: #cdd6f4;
 }
+#edit-profile form input:focus {
+  -moz-box-shadow: 0 0 8px #89b4fa;
+  -webkit-box-shadow: 0 0 8px #89b4fa;
+  box-shadow: 0 0 8px #89b4fa;
+  border: 1px solid #89b4fa;
+}
 #edit-profile form button {
   border: none;
   background-color: #89b4fa;
@@ -420,6 +486,73 @@ table tbody tr:hover {
 #display-profile span {
   display: flex;
   justify-content: center;
+}
+
+#form a {
+  text-decoration: inherit;
+  border: none;
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  padding: 0.5rem 2rem;
+}
+#form a:hover {
+  background-color: #f5c2e7;
+}
+#form .pink-button {
+  background-color: #a6adc8;
+}
+#form .pink-button:hover {
+  background-color: #bac2de;
+  cursor: pointer;
+}
+#form form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #313244;
+  color: #cdd6f4;
+}
+#form form label {
+  display: block;
+  margin-bottom: 5px;
+}
+#form form input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  font-size: 16px;
+  background-color: #45475a;
+  color: #cdd6f4;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+}
+#form form input:focus {
+  -moz-box-shadow: 0 0 8px #89b4fa;
+  -webkit-box-shadow: 0 0 8px #89b4fa;
+  box-shadow: 0 0 8px #89b4fa;
+  border: 1px solid #89b4fa;
+}
+#form form button {
+  border: none;
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  padding: 0.5rem 2rem;
+}
+#form form button:hover {
+  background-color: #f5c2e7;
+}
+#form form h6 {
+  margin-top: 0;
+  font-size: 18px;
+}
+#form form p {
+  color: #f5c2e7;
+  margin: 0 0 10px;
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=style.css.map */

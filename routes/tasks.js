@@ -30,7 +30,6 @@ router.get("/all-tasks/:projectId", (req, res) => {
                 { task: foundTasks[i]._id },
                 "percentComplete estimatedTime"
               ).then((subtasks) => {
-                console.log("SUBTASKS", subtasks);
                 function getTotalTimeRemaining(subtasks) {
                   return subtasks.reduce(
                     (a, b) =>
@@ -73,12 +72,10 @@ router.get("/all-tasks/:projectId", (req, res) => {
                   );
                 }
                 foundTasks = deepcopyTasks;
-                console.log("❤️task: ", foundTasks[i].totalEstimatedTime);
               });
             }
           }
           getTimeData().then(() => {
-            console.log("FOUND TASKS THAT SHOULD BE UPDATED: ", foundTasks);
             foundTasks = formatDates(foundTasks);
             State.find().then((states) => {
               foundProject = addOtherStatesField([foundProject], states)[0];
@@ -89,7 +86,7 @@ router.get("/all-tasks/:projectId", (req, res) => {
                     {
                       headers: {
                         Authorization:
-                          "Bearer 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",
+                          "Bearer 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",
                       },
                     }
                   )
@@ -130,23 +127,25 @@ router.post("/create/:projectId", (req, res) => {
   const { title, description } = req.body;
   const projID = req.params.projectId;
   const user = req.session.user._id;
-  State.findOne({ name: "new" }).then((newState) => {
-    Task.create({
-      title,
-      description,
-      state: newState._id,
-      project: projID,
-      user,
-    }).then((createdTask) => {
-      res.redirect(`/tasks/all-tasks/${projID}`);
+  if (!title) res.redirect(`/tasks/all-tasks/${projID}`);
+  else {
+    State.findOne({ name: "new" }).then((newState) => {
+      Task.create({
+        title,
+        description,
+        state: newState._id,
+        project: projID,
+        user,
+      }).then((createdTask) => {
+        res.redirect(`/tasks/all-tasks/${projID}`);
+      });
     });
-  });
+  }
 });
 router.post("/edit/:taskId", (req, res) => {
   const taskID = req.params.taskId;
   const updatedTask = req.body;
   Task.findByIdAndUpdate(taskID, updatedTask).then((updatedTask) => {
-    console.log("updated Task: ", updatedTask);
     res.redirect(`/subtasks/all-subtasks/${taskID}`);
   });
 });
@@ -161,14 +160,5 @@ router.post("/delete/:taskId", (req, res) => {
   });
 });
 
-router.get("/test", (req, res) => {
-  //axios is fetch but better => cleaner, accepts more parameters (url, header, body, etc.)
-  axios
-    .get("https://api.github.com/repos/chenmic8/ProjectManagementApp/commits")
-    .then((result) => {
-      console.log("latest commit:", result.data[0].commit.commiter.date);
-      res.render("test");
-    });
-});
 
 module.exports = router;

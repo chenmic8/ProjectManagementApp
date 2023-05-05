@@ -121,6 +121,9 @@ router.post("/create/:taskId", upload.single("subtaskPicture"), (req, res) => {
   let subtask = req.body;
   const taskID = req.params.taskId;
   const user = req.session.user._id;
+  subtask.percentComplete = 0;
+  subtask.task = taskID;
+  subtask.user = user;
   if (req.file) {
     const encoded = req.file.buffer.toString("base64");
     const imageType = req.file.mimetype;
@@ -128,15 +131,15 @@ router.post("/create/:taskId", upload.single("subtaskPicture"), (req, res) => {
     subtask.image = image;
   }
   if (!req.body.estimatedTime) subtask.estimatedTime = 1;
-  subtask.percentComplete = 0;
-  subtask.task = taskID;
-  subtask.user = user;
-  State.findOne({ name: "new" }).then((newState) => {
-    subtask.state = newState._id;
-    Subtask.create(subtask).then((createdSubtask) => {
-      res.redirect(`/subtasks/all-subtasks/${taskID}`);
+  if (!req.body.title) res.redirect(`/subtasks/all-subtasks/${taskID}`);
+  else {
+    State.findOne({ name: "new" }).then((newState) => {
+      subtask.state = newState._id;
+      Subtask.create(subtask).then((createdSubtask) => {
+        res.redirect(`/subtasks/all-subtasks/${taskID}`);
+      });
     });
-  });
+  }
 });
 
 router.post("/edit/:subtaskId", upload.single("subtaskPicture"), (req, res) => {
