@@ -89,22 +89,24 @@ router.post("/change-password", (req, res) => {
       if (!user) {
         user.errorMessage = "passwords don't match or password is incorrect";
         res.render("editProfile.hbs", user);
-        return;
+
         //validate password
       } else if (
         bcryptjs.compareSync(currentPassword, user.password) &&
         newPassword === newPasswordRepeat
       ) {
+        console.log("PASSWORDS MATCH AND WILL UPDATE TO NEW PASSWORD");
+        console.log("new password: ", newPassword);
         bcryptjs
           .genSalt(saltRounds)
-          .then((salt) => bcryptjs.hash(password, salt))
+          .then((salt) => bcryptjs.hash(newPassword, salt))
           .then((hashedPassword) => {
-            return User.findByIdAndUpdate({
+            User.findByIdAndUpdate(userID, {
               password: hashedPassword,
+            }).then((updatedUser) => {
+              console.log("updated user", updatedUser);
+              res.redirect("/users/user-details");
             });
-          })
-          .then((updatedUser) => {
-            res.redirect("/users/user-details");
           })
           .catch((error) => {
             console.error(error);

@@ -1,10 +1,11 @@
 <div id="edit-profile">
-  <br><br>
+  <br>
+  <p class="pink">{{errorMessage}}</p>
+  <br>
 <form action="/users/edit" method="post">
   {{! <input type="file" name=""> }}
   {{!-- <img src="{{profilePicture}}" alt="profile picture" /> --}}
   <h6 class="blue">Change User Details</h6><br>
-  <p>{{errorMessage}}</p>
   <label for="firstName">First Name </label>
   <input id="firstName" type="text" name="firstName" value="{{firstName}}" />
   <label for="lastName">Last Name </label>
